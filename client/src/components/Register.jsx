@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { setAuthUserAC } from '../redux/actions/authUserAction';
-const { REACT_APP_HOST: host } = process.env;
 
 function Register() {
   const [input, setInput] = useState({
