@@ -7,7 +7,7 @@ export const getAuthUserThunk = (payload, navigate) => async (dispatch) => {
     const formData = new FormData();
     formData.append('username', payload.username);
     formData.append('password', payload.password);
-    const response = await fetch(`https://wdl-app-heroku-001.herokuapp.com:5432/login`, {
+    const response = await fetch(`/login`, {
       method: 'POST',
       body: formData,
     });
