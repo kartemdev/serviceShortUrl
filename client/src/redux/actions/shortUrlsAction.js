@@ -1,5 +1,3 @@
-const { REACT_APP_HOST: host } = process.env;
-
 export const setShortUrlsAC = (payload) => ({ type: 'GET_URLS', payload });
 
 export const getShortUrlsThunk = (payload) => async (dispatch) => {

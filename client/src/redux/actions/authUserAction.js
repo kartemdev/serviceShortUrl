@@ -1,5 +1,3 @@
-const { REACT_APP_HOST: host } = process.env;
-
 export const setAuthUserAC = (payload) => ({ type: 'SET_AUTH_USER', payload });
 
 export const getAuthUserThunk = (payload, navigate) => async (dispatch) => {
@@ -7,7 +5,7 @@ export const getAuthUserThunk = (payload, navigate) => async (dispatch) => {
     const formData = new FormData();
     formData.append('username', payload.username);
     formData.append('password', payload.password);
-    const response = await fetch(`/login`, {
+    const response = await fetch('http://79.143.31.216/login', {
       method: 'POST',
       body: formData,
     });
