@@ -33,7 +33,7 @@ async function urlCutter() {
   return url;
 }
 
-app.post('/register', async (req, res) => {
+app.post('/urls/register', async (req, res) => {
   try {
     await user.create({
       name: req.body.user
@@ -56,7 +56,7 @@ app.get('/urls/:user', (async (req, res) => {
   }
 }));
 
-app.get('/:shortUrl', async (req, res) => {
+app.get('/s/:shortUrl', async (req, res) => {
   try {
     const link = req.params.shortUrl;
     const obj = await shorturl.findOne({ where: { shortUrl: link } });
@@ -66,7 +66,7 @@ app.get('/:shortUrl', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname,'client/build/index.html'));
 });
 

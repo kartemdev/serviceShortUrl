@@ -29,7 +29,7 @@ function Register() {
         dispatch(setAuthUserAC(response.data.username));
         axios({
           method: 'post',
-          url: `/register`,
+          url: `/urls/register`,
           data: {
             user: response.data.username,
           }
