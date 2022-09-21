@@ -1,10 +1,12 @@
 require('dotenv').config();
 
 module.exports = {
-  develloped: {
+  development: {
     username: "intro_user",
     password: "intro_user",
-    
+    database: "onlineMarket",
+    host: "http://localhost:3000/",
+    dialect: "postgres"
   },
   production: {
     username: process.env.DB_USER,
