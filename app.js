@@ -55,16 +55,15 @@ app.post('/urls/login', async (req, res) => {
 app.post('/urls/register', async (req, res) => {
   try {
     const userCheck = await user.findOne({ where: { name: req.body.username } });
-    if (userCheck.dataValues.name) {
-      return res.status(400).json({ message: 'user already sign up' })
-    } else if (userCheck.dataValues.name === null) {
+    if (userCheck.dataValues === null) {
       const hashPassword = await bcrypt.hash(req.body.password, 4)
       await user.create({
         name: req.body.username,
         password: hashPassword,
       });
       return res.status(200).json({ message: 'user sign up' });
-    }
+    } 
+      return res.status(400).json({ message: 'user already sign up' });
   } catch (error) {
     console.log('error register --->', error);
     return res.json({ message: 'server error' });

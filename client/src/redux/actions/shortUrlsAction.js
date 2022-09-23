@@ -3,7 +3,7 @@ export const addShortUrlsAC = (payload) => ({ type: 'ADD_URL', payload });
 
 export const getShortUrlsThunk = (payload) => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:3001/urls/${payload}`, { method: 'GET' });
+    const response = await fetch(`/urls/${payload}`, { method: 'GET' });
     if (response.ok) {
       const result = await response.json();
       dispatch(setShortUrlsAC(result));
