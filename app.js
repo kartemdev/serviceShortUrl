@@ -5,6 +5,7 @@ const { shorturl, user } = require('./db/models');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { json } = require('sequelize');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -55,7 +56,7 @@ app.post('/urls/login', async (req, res) => {
 app.post('/urls/register', async (req, res) => {
   try {
     const userCheck = await user.findOne({ where: { name: req.body.username } });
-    if (userCheck.dataValues === null) {
+    if (JSON.stringify(userCheck) == '{}') {
       const hashPassword = await bcrypt.hash(req.body.password, 4)
       await user.create({
         name: req.body.username,
