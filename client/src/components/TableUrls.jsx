@@ -27,7 +27,7 @@ function TableUrls() {
               <td>
                 <form >
                   <a href={(obj.longUrl).toString()} target="_blank" rel="noreferrer">{obj.shortUrl}</a>
-                  <button onClick={copyHandler} type='click' className="btn btn-primary ms-1" name='copyBut'>copy</button>
+                  <button onClick={copyHandler} type='button' className="btn btn-primary ms-1" name='copyBut'>copy</button>
                 </form>
               </td>
               <td>
