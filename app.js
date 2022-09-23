@@ -57,7 +57,7 @@ app.post('/urls/register', async (req, res) => {
     const userCheck = await user.findOne({ where: { name: req.body.username } });
     if (userCheck.dataValues.name) {
       return res.status(400).json({ message: 'user already sign up' })
-    } else {
+    } else if (userCheck.dataValues.name === null) {
       const hashPassword = await bcrypt.hash(req.body.password, 4)
       await user.create({
         name: req.body.username,
