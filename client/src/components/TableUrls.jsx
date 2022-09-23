@@ -8,7 +8,7 @@ function TableUrls() {
     e.preventDefault();
     const RESULT = `https://wdl-app-heroku-001.herokuapp.com/s/${e.nativeEvent.path[1].innerText.slice(0, 5)}`;
     if (RESULT) {
-      return navigator.clipboard.writeText(RESULT);
+      navigator.clipboard.writeText(RESULT);
     }
   }
   return (
