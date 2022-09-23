@@ -23,7 +23,7 @@ function Login() {
 
   return (
     <div className="d-flex justify-content-center flex-column align-items-center">
-      <h1>Sign In</h1>
+      <h1>Autharization</h1>
       <form className="w-50" onSubmit={submitHandler}>
         <div className="mb-3">
           <label htmlFor="login" className="form-label">User Name</label>

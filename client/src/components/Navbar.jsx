@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   const user = useSelector((store) => store.authUser);
-  console.log('navbar --->', user);
   return (
     <>
       {user ? (

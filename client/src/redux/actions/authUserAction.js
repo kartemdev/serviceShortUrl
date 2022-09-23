@@ -2,26 +2,28 @@ export const setAuthUserAC = (payload) => ({ type: 'SET_AUTH_USER', payload });
 
 export const getAuthUserThunk = (payload, navigate) => async (dispatch) => {
   try {
-    const formData = new FormData();
-    formData.append('username', payload.username);
-    formData.append('password', payload.password);
-    const response = await fetch('http://79.143.31.216/login', {
+    if (!payload.username || !payload.password) {
+      return alert('INPUT EMPTY')
+    } 
+
+    const response = await fetch('/urls/login', {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload),
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       const result = await response.json();
-      console.log(result);
-      if (result.access_token && result.token_type) {
-        dispatch(setAuthUserAC(payload.username));
-
-        setTimeout(() => {
-          navigate('/');
-        }, 700);
-      } else {
-        navigate('/');
-      }
+      dispatch(setAuthUserAC(result.userName));
+      setTimeout(() => {
+        navigate('/')
+      }, 500)
+    } else if (response.status === 404) {
+      alert('MY DEAR GUEST, USER NOT FOUND :)')
+    } else if (response.status === 400) {
+      alert('MY DEAR GUEST, INVALID PASSWORD :)')
     } else {
       console.log(response);
     }

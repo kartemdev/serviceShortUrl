@@ -1,8 +1,5 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { setAuthUserAC } from '../redux/actions/authUserAction';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [input, setInput] = useState({
@@ -10,7 +7,6 @@ function Register() {
     password: '',
   });
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const changeHandler = (e) => {
@@ -20,25 +16,26 @@ function Register() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      axios({
-        method: 'post',
-        url: `http://79.143.31.216/register?username=${input.username}&password=${input.password}`,
-        data: {
-        },
-      }).then((response) => {
-        dispatch(setAuthUserAC(response.data.username));
-        axios({
-          method: 'post',
-          url: `/urls/register`,
-          data: {
-            user: response.data.username,
-          }
+        if (!input.username || !input.password) {
+          return alert('INPUT EMPTY')
+        } 
+
+        fetch('/urls/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(input),
         })
-          .catch((err) => console.log('error axios register --->', err));
-      });
-      setTimeout(() => {
-        navigate('/');
-      }, 700);
+          .then((response) => {
+            if (response.status === 200) {
+                navigate('/login');
+            } else if (response.status === 400) {
+              alert('MY DEAR GUEST, USER ALREADY REGISTER :)')
+            } else {
+              console.log(response);
+            }
+          });
     } catch (error) {
       console.log('error register fastApi --->', error);
     }
@@ -46,7 +43,7 @@ function Register() {
 
   return (
     <div className="d-flex justify-content-center flex-column align-items-center">
-      <h1>Sign Up</h1>
+      <h1>Registration</h1>
       <form className="w-50" onSubmit={submitHandler}>
         <div className="mb-3">
           <label htmlFor="login" className="form-label">User Name</label>

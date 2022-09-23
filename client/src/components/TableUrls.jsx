@@ -3,12 +3,18 @@ import { useSelector } from 'react-redux';
 
 function TableUrls() {
   const urls = useSelector((store) => store.shortUrls);
+
+  const copyHandler = (e) => {
+    e.preventDefault();
+    if (e.target.name === 'copyBut') {
+      navigator.clipboard.writeText(`https://wdl-app-heroku-001.herokuapp.com/s/${e.nativeEvent.path[1].innerText.slice(0, 5)}`)
+    }
+  }
   return (
     <>
       <table className="table w-50 mt-3">
         <thead>
           <tr>
-            <th scope="col">№</th>
             <th scope="col">ShortUrl</th>
             <th scope="col">YourUrl</th>
             <th scope="col">CountClick</th>
@@ -17,9 +23,15 @@ function TableUrls() {
         <tbody>
           {urls.map((obj) => (
             <tr key={obj.id}>
-              <th scope="row">{obj.id}</th>
-              <td><a href={(obj.longUrl).toString()} target="_blank" rel="noreferrer">{obj.shortUrl}</a></td>
-              <td><a href={(obj.longUrl).toString()} target="_blank" rel="noreferrer">{obj.longUrl}</a></td>
+              <td>
+                <form >
+                  <a href={(obj.longUrl).toString()} target="_blank" rel="noreferrer">{obj.shortUrl}</a>
+                  <button onClick={copyHandler} type='click' className="btn btn-primary ms-1" name='copyBut'>copy</button>
+                </form>
+              </td>
+              <td>
+                <a href={(obj.longUrl).toString()} target="_blank" rel="noreferrer" title={obj.longUrl}>{obj.longUrl.slice(0, 30)}...</a>
+              </td>
               <td>{obj.countClick}</td>
             </tr>
           ))}

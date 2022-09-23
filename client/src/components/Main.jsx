@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getShortUrlsThunk, setShortUrlsAC } from '../redux/actions/shortUrlsAction';
+import { addShortUrlsThunk, getShortUrlsThunk } from '../redux/actions/shortUrlsAction';
 import TableUrls from './TableUrls';
+import { Link } from 'react-router-dom';
 
 function Main() {
   const [input, setInput] = useState('');
@@ -23,6 +24,7 @@ function Main() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(addShortUrlsThunk({ username: user, url: input }))
   };
 
   return (
@@ -34,7 +36,7 @@ function Main() {
               Hi {user}, welcome ShortUrl Service!
             </h1>
           </div>
-          <form className="text-center">
+          <form onSubmit={submitHandler} className="text-center">
             <div className="mb-3">
               <label htmlFor="url" className="form-label">Your Url</label>
               <input onChange={changeHandler} type="text" className="form-control" id="url" value={input} />
@@ -44,10 +46,14 @@ function Main() {
           <TableUrls />
         </div>
       ) : (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center align-items-center flex-column">
           <h1>
             Please, Authorized ShortUrl Service!
           </h1>
+          <form className='d-flex mt-5'>
+            <Link to='/register'><button type='click' className='btn btn-primary me-2'>Register</button></Link>
+            <Link to='/login'><button type='click' className='btn btn-primary ms-2'>Login</button></Link>
+          </form>
         </div>
       )}
     </>
