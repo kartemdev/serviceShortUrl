@@ -6,8 +6,9 @@ function TableUrls() {
 
   const copyHandler = (e) => {
     e.preventDefault();
-    if (e.target.name === 'copyBut') {
-      navigator.clipboard.write(`https://wdl-app-heroku-001.herokuapp.com/s/${e.nativeEvent.path[1].innerText.slice(0, 5)}`)
+    const RESULT = `https://wdl-app-heroku-001.herokuapp.com/s/${e.nativeEvent.path[1].innerText.slice(0, 5)}`;
+    if (RESULT) {
+      return navigator.clipboard.writeText(RESULT);
     }
   }
   return (
@@ -26,7 +27,7 @@ function TableUrls() {
               <td>
                 <form >
                   <a href={(obj.longUrl).toString()} target="_blank" rel="noreferrer">{obj.shortUrl}</a>
-                  <button onClick={copyHandler} type='click' className="btn btn-primary ms-1" name='copyBut'>copy</button>
+                  <button onSubmit={copyHandler} type='click' className="btn btn-primary ms-1" name='copyBut'>copy</button>
                 </form>
               </td>
               <td>
