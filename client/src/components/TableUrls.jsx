@@ -7,7 +7,7 @@ function TableUrls() {
   const copyHandler = (e) => {
     e.preventDefault();
     if (e.target.name === 'copyBut') {
-      navigator.clipboard.writeText(`https://wdl-app-heroku-001.herokuapp.com/s/${e.nativeEvent.path[1].innerText.slice(0, 5)}`)
+      navigator.clipboard.write(`https://wdl-app-heroku-001.herokuapp.com/s/${e.nativeEvent.path[1].innerText.slice(0, 5)}`)
     }
   }
   return (
